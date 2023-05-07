@@ -1,0 +1,19 @@
+{
+  "name": "carpenstar/bybitapi-sdk-websockets",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Carpenstar",
+      "email": "mighty.vlad@gmail.com"
+    }
+  ],
+  "require": {
+    "carpenstar/bybitapi-sdk-core": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Carpenstar\\ByBitAPI\\WebSockets\\": "src/WebSockets"
+    }
+  }
+}
