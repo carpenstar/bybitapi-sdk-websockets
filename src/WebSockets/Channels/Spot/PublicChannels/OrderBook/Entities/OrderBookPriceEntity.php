@@ -1,9 +1,9 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities;
 
 use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
 
-class OrderBookPriceDTO extends ResponseEntity
+class OrderBookPriceEntity extends ResponseEntity
 {
     /**
      * @var float $price

@@ -1,7 +1,8 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade;
 
-use Carpenstar\ByBitAPI\WebSockets\Objects\WebSocketsSpotPublicChannel;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Entities\PublicTradeEntity;
+use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsSpotPublicChannel;
 
 /**
  * https://bybit-exchange.github.io/docs/spot/ws-public/public-trade
@@ -21,7 +22,7 @@ class PublicTradeChannel extends WebSocketsSpotPublicChannel
      */
     public function getResponseDTOClass(): string
     {
-        return PublicTradeDTO::class;
+        return PublicTradeEntity::class;
     }
 
 }

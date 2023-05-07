@@ -1,7 +1,8 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook;
 
-use Carpenstar\ByBitAPI\WebSockets\Objects\WebSocketsSpotPublicChannel;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities\OrderBookEntity;
+use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsSpotPublicChannel;
 
 /**
  * https://bybit-exchange.github.io/docs/spot/ws-public/orderbook
@@ -27,7 +28,7 @@ class OrderBookChannel extends WebSocketsSpotPublicChannel
      */
     public function getResponseDTOClass(): string
     {
-        return OrderBookDTO::class;
+        return OrderBookEntity::class;
     }
 
 }

@@ -5,7 +5,7 @@ use Carpenstar\ByBitAPI\Core\Interfaces\IFabricInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketsChannelInterface;
-use Carpenstar\ByBitAPI\WebSockets\Objects\ChannelHandler;
+use Carpenstar\ByBitAPI\WebSockets\Objects\Channels\ChannelHandler;
 
 class WebSocketsBuilder implements IFabricInterface
 {

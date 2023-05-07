@@ -1,5 +1,5 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\Entities;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
@@ -7,7 +7,7 @@ use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
 /**
  * https://bybit-exchange.github.io/docs/derivatives/ws-public/ticker
  */
-class TickersDataItemDTO extends ResponseEntity
+class TickersItemEntity extends ResponseEntity
 {
     /**
      * Trading pair

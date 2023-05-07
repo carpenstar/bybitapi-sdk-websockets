@@ -1,7 +1,8 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook;
 
-use Carpenstar\ByBitAPI\WebSockets\Objects\WebSocketsDerivativesPublicChannel;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Entities\OrderBookEntity;
+use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsDerivativesPublicChannel;
 
 class OrderBookChannel extends WebSocketsDerivativesPublicChannel
 {
@@ -12,6 +13,6 @@ class OrderBookChannel extends WebSocketsDerivativesPublicChannel
 
     public function getResponseDTOClass(): string
     {
-        return OrderBookDTO::class;
+        return OrderBookEntity::class;
     }
 }

@@ -1,10 +1,10 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
 
-class BooktickerDTO extends ResponseEntity
+class BooktickerEntity extends ResponseEntity
 {
     /**
      * Topic name
@@ -75,7 +75,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param string $responseTimestamp
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     public function setResponseTimestamp(string $responseTimestamp): self
     {
@@ -93,7 +93,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param float $bestBidPrice
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     private function setBestBidPrice(float $bestBidPrice): self
     {
@@ -111,7 +111,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param float $bidQuantity
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     private function setBidQuantity(float $bidQuantity): self
     {
@@ -129,7 +129,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param float $bestAskPrice
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     private function setBestAskPrice(float $bestAskPrice): self
     {
@@ -147,7 +147,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param float $askQuantity
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     public function setAskQuantity(float $askQuantity): self
     {
@@ -165,7 +165,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param string $symbol
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     public function setSymbol(string $symbol): self
     {
@@ -183,7 +183,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param string $topic
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     private function setTopic(string $topic): self
     {
@@ -201,7 +201,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param string $requestTimestamp
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     private function setRequestTimestamp(string $requestTimestamp): self
     {
@@ -219,7 +219,7 @@ class BooktickerDTO extends ResponseEntity
 
     /**
      * @param string $type
-     * @return BooktickerDTO
+     * @return BooktickerEntity
      */
     private function setType(string $type): self
     {

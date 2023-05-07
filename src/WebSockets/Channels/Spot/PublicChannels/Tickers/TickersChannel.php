@@ -1,7 +1,8 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers;
 
-use Carpenstar\ByBitAPI\WebSockets\Objects\WebSocketsSpotPublicChannel;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\Entities\TickersEntity;
+use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsSpotPublicChannel;
 
 /**
  * https://bybit-exchange.github.io/docs/spot/ws-public/ticker
@@ -19,6 +20,6 @@ class TickersChannel extends WebSocketsSpotPublicChannel
      */
     public function getResponseDTOClass(): string
     {
-        return TickersDTO::class;
+        return TickersEntity::class;
     }
 }

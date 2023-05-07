@@ -1,13 +1,13 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities;
 
-use Carpenstar\ByBitAPI\Core\Fabrics\ResponseFabric;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
 use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
 
-class OrderBookDTO extends ResponseEntity
+class OrderBookEntity extends ResponseEntity
 {
     /**
      * Topic name
@@ -162,7 +162,7 @@ class OrderBookDTO extends ResponseEntity
 
         if (!empty($asks)) {
             array_map(function ($askItem) use ($askCollection) {
-                $askCollection->push(ResponseFabric::make(OrderBookPriceDTO::class, $askItem));
+                $askCollection->push(ResponseBuilder::make(OrderBookPriceDTO::class, $askItem));
             }, $asks);
         }
 
@@ -180,7 +180,7 @@ class OrderBookDTO extends ResponseEntity
 
     /**
      * @param array $bids
-     * @return OrderBookDTO
+     * @return OrderBookEntity
      * @throws \Exception
      */
     private function setBid(array $bids): self
@@ -189,7 +189,7 @@ class OrderBookDTO extends ResponseEntity
 
         if (!empty($bids)) {
             array_map(function ($bidItem) use ($bidCollection) {
-                $bidCollection->push(ResponseFabric::make(OrderBookPriceDTO::class, $bidItem));
+                $bidCollection->push(ResponseBuilder::make(OrderBookPriceDTO::class, $bidItem));
             }, $bids);
         }
 
