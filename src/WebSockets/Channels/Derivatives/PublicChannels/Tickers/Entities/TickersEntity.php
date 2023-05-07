@@ -1,12 +1,11 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\Entities;
 
-use Carpenstar\ByBitAPI\Core\Fabrics\ResponseFabric;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
 use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
-use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\TickersDataItemDTO;
 
 /**
  * https://bybit-exchange.github.io/docs/derivatives/ws-public/ticker
@@ -18,13 +17,15 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\TickersD
  *
  * Push frequency: 100ms
  */
-class TickersDTO extends ResponseEntity
+class TickersEntity extends ResponseEntity
 {
     private ?string $topic;
 
     private ?string $type;
 
     private \DateTime $timestamp;
+
+    private int $crossSequence;
 
     private ?ICollectionInterface $data;
 
@@ -35,7 +36,8 @@ class TickersDTO extends ResponseEntity
             ->setTopic($data['topic'])
             ->setType($data['type'])
             ->setData($data['data'])
-            ->setTimestamp($data['ts']);
+            ->setTimestamp($data['ts'])
+            ->setCrossSequence($data['cs']);
     }
 
     /**
@@ -91,10 +93,28 @@ class TickersDTO extends ResponseEntity
         return $this->timestamp;
     }
 
+    /**
+     * @param int $crossSequence
+     * @return self
+     */
+    private function setCrossSequence(int $crossSequence): self
+    {
+        $this->crossSequence = $crossSequence;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCrossSequence(): int
+    {
+        return $this->crossSequence;
+    }
+
     private function setData(array $data): self
     {
         if (!empty($data)) {
-            $this->data->push(ResponseFabric::make(TickersDataItemDTO::class, $data));
+            $this->data->push(ResponseBuilder::make(TickersDataItemEntity::class, $data));
         }
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Carpenstar\ByBitAPI\WebSockets\Objects;
+namespace Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets;
 
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketsDerivativesChannel;
 

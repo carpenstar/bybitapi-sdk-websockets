@@ -1,5 +1,5 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Objects;
+namespace Carpenstar\ByBitAPI\WebSockets\Objects\Channels;
 
 class DefaultChannelHandler extends ChannelHandler
 {

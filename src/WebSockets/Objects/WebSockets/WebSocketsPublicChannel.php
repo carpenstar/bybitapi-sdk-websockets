@@ -1,11 +1,13 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Objects;
+namespace Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets;
 
-use Carpenstar\ByBitAPI\Core\Fabrics\ResponseFabric;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
+use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseEntityInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketsChannelInterface;
+use Carpenstar\ByBitAPI\WebSockets\Objects\Channels\ChannelHandler;
 use WebSocket\Client;
 
 abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
@@ -26,7 +28,11 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
      */
     protected int $mode;
 
-    public function __construct(IWebSocketArgumentInterface $arguments, IChannelHandlerInterface $channelHandler, int $mode = 0)
+    public function __construct(
+        IWebSocketArgumentInterface $arguments,
+        IChannelHandlerInterface $channelHandler,
+        int $mode = 0,
+        int $socketTimeout = IWebSocketArgumentInterface::DEFAULT_SOCKET_CLIENT_TIMEOUT)
     {
         $this
             ->setClient(new Client(static::$wssRoute))
@@ -35,7 +41,7 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
             ->setTopic($arguments->getTopic())
             ->setOperation($arguments->getOperation());
 
-        $this->socketClient->setTimeout($arguments->getSocketClientTimeout());
+        $this->socketClient->setTimeout($socketTimeout);
     }
 
     /**
@@ -144,12 +150,12 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
         while (true) {
             try {
                 $test = $message = $this->getClient()->receive();
-                if ($this->getMode() == 1) {
+                if ($this->getMode() == EnumOutputMode::MODE_JSON) {
                     $message = json_decode($message, true);
                     if (empty($message['topic'])) {
                         continue;
                     }
-                    $message = ResponseFabric::make($this->getResponseDTOClass(), $message);
+                    $message = ResponseBuilder::make($this->getResponseDTOClass(), $message);
                 }
 
                 $this->getChannelHandler()->handle($message);
