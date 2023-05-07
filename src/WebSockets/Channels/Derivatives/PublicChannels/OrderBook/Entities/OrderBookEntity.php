@@ -1,13 +1,13 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Entities;
 
-use Carpenstar\ByBitAPI\Core\Fabrics\ResponseFabric;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
 use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
-use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\OrderBookPriceDTO;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities\OrderBookPriceEntity;
 
-class OrderBookDTO extends ResponseEntity
+class OrderBookEntity extends ResponseEntity
 {
 
     /**
@@ -131,7 +131,7 @@ class OrderBookDTO extends ResponseEntity
 
     /**
      * @param array $asks
-     * @return OrderBookDTO
+     * @return OrderBookEntity
      * @throws \Exception
      */
     private function setAsk(array $asks): self
@@ -140,7 +140,7 @@ class OrderBookDTO extends ResponseEntity
 
         if (!empty($asks)) {
             array_map(function ($askItem) use ($askCollection) {
-                $askCollection->push(ResponseFabric::make(OrderBookPriceDTO::class, $askItem));
+                $askCollection->push(ResponseBuilder::make(OrderBookPriceEntity::class, $askItem));
             }, $asks);
         }
 
@@ -150,7 +150,7 @@ class OrderBookDTO extends ResponseEntity
 
     /**
      * @param array $bids
-     * @return OrderBookDTO
+     * @return OrderBookEntity
      * @throws \Exception
      */
     private function setBid(array $bids): self
@@ -159,7 +159,7 @@ class OrderBookDTO extends ResponseEntity
 
         if (!empty($bids)) {
             array_map(function ($bidItem) use ($bidCollection) {
-                $bidCollection->push(ResponseFabric::make(OrderBookPriceDTO::class, $bidItem));
+                $bidCollection->push(ResponseBuilder::make(OrderBookPriceEntity::class, $bidItem));
             }, $bids);
         }
 

@@ -1,10 +1,10 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline\Entities;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
 
-class KlineDTO extends ResponseEntity
+class KlineEntity extends ResponseEntity
 {
     /**
      * Topic name
@@ -83,7 +83,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param string $topic
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setTopic(string $topic): self
     {
@@ -93,7 +93,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param string $requestTimestamp
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setRequestTimestamp(string $requestTimestamp): self
     {
@@ -103,7 +103,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param string $type
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setType(string $type): self
     {
@@ -113,7 +113,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param string $barTimestamp
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setBarTimestamp(string $barTimestamp): self
     {
@@ -123,7 +123,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param string $symbol
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setSymbol(string $symbol): self
     {
@@ -133,7 +133,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param float $closePrice
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setClosePrice(float $closePrice): self
     {
@@ -143,7 +143,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param float $highPrice
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setHighPrice(float $highPrice): self
     {
@@ -153,7 +153,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param float $lowPrice
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setLowPrice(float $lowPrice): self
     {
@@ -163,7 +163,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param float $openPrice
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setOpenPrice(float $openPrice): self
     {
@@ -173,7 +173,7 @@ class KlineDTO extends ResponseEntity
 
     /**
      * @param float $tradingVolume
-     * @return KlineDTO
+     * @return KlineEntity
      */
     private function setTradingVolume(float $tradingVolume): self
     {
