@@ -53,6 +53,39 @@ public function websocket(string $webSocketChannelClassName, IWebSocketArgumentI
 
 5. `int $wsClientTimeout` - необязательный параметр. Таймаут сокет-клиента в милисекундах. По умолчанию: 1000
 
+## Пример использования
+
+```php
+namespace \SomethingNameSpace\Directory;
+
+class CustomChannelHandler extends ChannelHandler
+{
+    /**
+    * @param KlineEntity $data
+    * @return void
+    */
+    public  function handle($data): void
+    {
+        echo $data->getTopic() . ' - ' . $data->getSymbol() . ' - ' . $data->getTradingVolume();
+        // Какой-то код...
+    }
+}
+```
+
+```php
+use Carpenstar\ByBitAPI\BybitAPI;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\KlineChannel;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Argument\KlineArgument;
+use Carpenstar\ByBitAPI\Core\Enums\EnumIntervals;
+use SomethingNameSpace\Directory\CustomChannelHandler;
+
+$wsArgument = new KlineArgument(EnumIntervals::HOUR_1, "BTCUSDT");
+$callbackHandler = new CustomChannelHandler();
+
+$bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
+$bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
+```
+
 ## Available channels:
 
 ### SPOT
@@ -286,7 +319,7 @@ use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\TickersChannel;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\Argument\TickersChannelArgument;
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
-$bybit->websocket(TickersChannel::class, new TickersChannelArgument("BTCUSDT"), new CustomChannelHandler());
+$bybit->websocket(TickersChannel::class, new TickersArgument("BTCUSDT"), new CustomChannelHandler());
 ```
 
 Обьект для подключения к каналу:
