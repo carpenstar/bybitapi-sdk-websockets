@@ -5,15 +5,24 @@
 
 **Разработка интеграции еще не закончена, поэтому работоспособность (как полностью, так и отдельных компонентов) не гарантируется.**
 
-## Install
+## Установка
 
 ```sh 
 composer require carpenstar/bybitapi-sdk-websockets
 ```
 
-## Настройка и использование
+## Экземпляр приложения
 
-При создании экземпляра приложения необходимо передать 3 параметра - хост, apikey и secret.
+```php
+use Carpenstar\ByBitAPI\BybitAPI;
+
+$bybit = new BybitAPI(
+    string $host, 
+    string $apiKey, 
+    string $secret
+);
+
+```
 
 Информация об актуальных хостах содержатся на страницах описания подключения в зависимости от типа торговли:
 - Деривативы: https://bybit-exchange.github.io/docs/derivatives/ws/connect
@@ -21,37 +30,22 @@ composer require carpenstar/bybitapi-sdk-websockets
 
 Генерация ключа api и secret производится на странице: https://www.bybit.com/app/user/api-management
 
-```php
-use Carpenstar\ByBitAPI\BybitAPI;
-new BybitAPI(string $host, string $apiKey, string $secret);
-```
-
 Для подключения к сокет-каналам существует единая точка входа в приложении BybitAPI
 
 ```php
-public function websocket(string $webSocketChannelClassName, IWebSocketArgumentInterface $data, IChannelHandlerInterface $channelHandler, int $mode = EnumOutputMode::MODE_ENTITY, int $wsClientTimeout = IWebSocketArgumentInterface::DEFAULT_SOCKET_CLIENT_TIMEOUT): void
+public function websocket(
+        string $webSocketChannelClassName,  // Имя класса базового канала, содержащий в себе все необходимые инструкции для соединения
+        IWebSocketArgumentInterface $argument, // Обьект опций который необходим для настройки соединения
+        IChannelHandlerInterface $channelHandler, // Пользовательский коллбэк сообщений пришедших от сервера.
+        [int $mode = EnumOutputMode::MODE_ENTITY], // Тип сообщений передаваемых в коллбэк (dto или json)
+        [int $wsClientTimeout = IWebSocketArgumentInterface::DEFAULT_SOCKET_CLIENT_TIMEOUT] // Таймаут сокет-клиента в милисекундах. По умолчанию: 1000
+        ): void
 ```
 
-1. `string $webSocketChannelClassName` - обязательный параметр. Имя класса базового канала, содержащий в себе все необходимые инструкции для соединения
-   (cписок доступных на текущий момент каналов приводится ниже, в примерах использования)
-
-
-2. `IWebSocketArgumentInterface $data` - обязательный параметр. Обьект опций который необходим для настройки соединения, информация о параметрах передаваемых в констуктор нужно смотреть в аннотации каждого из обьекта;
-
-
-3. `IChannelHandlerInterface $channelHandler` - обязательный параметр. Пользовательский обьект обработчика сообщений пришедших от сервера.
-   Шаблон класса можно посмотреть по пути: `Carpenstar\ByBitAPI\WebSockets\Objects\Channels\DefaultChannelHandler`
-
-
-4. `int $mode` - необязательный параметр. Режим обработки сообщений присылаемых с сокет-сервера и то в каком виде они будут переданы в обработчик сообщений канала `IChannelHandlerInterface`.
-
-   По умолчанию, каждое сообщение перед передачей в обработчик оборачивается в сущность.  
-   Возможные значения:  
-   `\Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode::MODE_ENTITY` - преобразование в сущности (медленнее)  
-   `\Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode::MODE_JSON` - обработчик канала получит сырое сообщение в формате json (быстрее)
-
-
-5. `int $wsClientTimeout` - необязательный параметр. Таймаут сокет-клиента в милисекундах. По умолчанию: 1000
+По умолчанию, каждое сообщение перед передачей в коллбэк оборачивается в сущность.  
+Возможные значения:  
+`\Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode::MODE_ENTITY` - преобразование в сущности (медленнее)  
+`\Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode::MODE_JSON` - обработчик канала получит сырое сообщение в формате json (быстрее)
 
 ## Пример использования
 
@@ -86,7 +80,7 @@ $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
 ```
 
-## Available channels:
+## Поддерживаемые каналы:
 
 ### SPOT
 
