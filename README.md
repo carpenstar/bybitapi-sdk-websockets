@@ -58,7 +58,8 @@ public function websocket(string $webSocketChannelClassName, IWebSocketArgumentI
 ### SPOT
 
 #### PUBLIC CHANNEL - ORDER BOOK
-https://bybit-exchange.github.io/docs/spot/ws-public/orderbook
+
+[Ссылка на оф.документацию](https://bybit-exchange.github.io/docs/spot/ws-public/orderbook)
 
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
@@ -69,6 +70,27 @@ $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(OrderBookChannel::class, new OrderBookArgument("BTCUSDT"), new CustomChannelHandler());
 ```
 
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Argument\OrderBookArgument(string $symbol [, ?string $reqId = null])
+```
+
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities\OrderBookEntity::class
+    
+public function getTopic(): string // Topic name
+public function getType(): string // Data type. snapshot
+public function getSymbol(): string // Trading pair
+public function getRequestTimestamp(): \DateTime // The timestamp that message is sent out
+public function getResponseTimestamp(): \DateTime // The timestamp that system generates the data.
+public function getAsk(): ICollectionInterface // OrderBookPriceEntity[]
+public function getBid(): ICollectionInterface // OrderBookPriceEntity[]
+```
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities\OrderBookPriceEntity::class
+    
+public function getPrice(): float
+public function getSize(): float
+```
 
 #### PUBLIC CHANNEL - KLINE
 https://bybit-exchange.github.io/docs/spot/ws-public/kline
@@ -83,6 +105,25 @@ $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(KlineChannel::class, new KlineArgument(EnumIntervals::HOUR_1, "BTCUSDT"), new CustomChannelHandler());
 ```
 
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline\Argument\KlineArgument(string $symbol, string $interval [, ?string $reqId = null])
+```
+
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline\Entities\KlineEntity::class
+
+public function getTopic(): string // Topic name
+public function getType(): string // Data type. snapshot
+public function getSymbol(): string // Trading pair
+public function getRequestTimestamp(): \DateTime // The timestamp that message is sent out
+public function getBarTimestamp(): \DateTime // The start timestamp of the bar
+public function getClosePrice(): float // Close price
+public function getHighPrice(): float // High price
+public function getLowPrice(): float // Low price
+public function getOpenPrice(): float // Open price
+public function getTradingVolume(): float // Trading volume
+```
+
 #### PUBLIC CHANNEL - BOOKTICKER
 https://bybit-exchange.github.io/docs/spot/ws-public/bookticker
 
@@ -93,6 +134,24 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Argu
 
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(BooktickerChannel::class, new BooktickerArgument("BTCUSDT"), new CustomChannelHandler());
+```
+
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Argument\BooktickerArgument(string $symbol [, ?string $reqId = null])
+```
+
+```php
+Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\BooktickerEntity::class
+
+public function getTopic(): string // Topic name
+public function getType(): string // Data type. snapshot
+public function getSymbol(): string // Trading pair
+public function getRequestTimestamp(): \DateTime // The timestamp that message is sent out
+public function getResponseTimestamp(): \DateTime // The timestamp response from server
+public function getBestBidPrice(): float // Best bid price
+public function getBidQuantity(): float // Bid quantity
+public function getBestAskPrice(): float // Best ask price
+public function getAskQuantity(): float // Ask quantity
 ```
 
 #### PUBLIC CHANNEL - TICKERS
@@ -106,6 +165,33 @@ $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(TickersChannel::class, new TickersChannelArgument("BTCUSDT"), new CustomChannelHandler());
 ```
 
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Argument\TickersArgument(string $symbol [, ?string $reqId = null])
+```
+
+```php
+Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\TickersEntity::class
+
+public function getTopic(): string // Topic name
+public function getType(): string // Data type. snapshot
+public function getTimestamp(): \DateTime // The timestamp that message is sent out
+public function getData(): ?ICollectionInterface // TickersItemEntity[]
+```
+```php
+Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\TickersItemEntity::class
+
+public function getSymbol(): string // Trading pair
+public function getTimestamp(): \DateTime // Timestamp (trading time in the match box)
+public function getOpenPrice(): float // Open price
+public function getHighPrice(): float // High price
+public function getLowPrice(): float // Low price
+public function getClosePrice(): float // Close price
+public function getTradingVolume(): float // Trading volume
+public function getTradinqQuoteVolume(): float // Trading quote volume
+public function getChange(): float // Change
+public function getUsdIndexPrice(): string // USD index price. It can be empty
+```
+
 #### PUBLIC CHANNEL - PUBLIC TRADE
 https://bybit-exchange.github.io/docs/spot/ws-public/public-trade
 
@@ -115,6 +201,22 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Publ
 
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $api->websocket(PublicTradeChannel::class, new PublicTradeArgument("BTCUSDT"), new CustomChannelHandler());
+```
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Argument\PublicTradeArgument(string $symbol [, ?string $reqId = null])
+```
+```php
+Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\PublicTradeEntity::class
+
+public function getTopic(): string // Topic name
+public function getRequestTimestamp(): \DateTime // The timestamp that message is sent out
+public function getType(): string // Data type. snapshot
+public function getTradeId(): string // Trade ID
+public function getTradingTime(): \DateTime // Timestamp (trading time in the match box)
+public function getPrice(): float // Price
+public function getQuantity(): float // Quantity
+public function getIsTaker(): bool // True indicates buy side is taker, false indicates sell side is taker
+public function getTradeType(): int // Trade type. 0：Spot trade. 1：Paradigm block trade
 ```
 
 ### Derivatives
@@ -130,7 +232,26 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(OrderBookChannel::class, new OrderBookArgument("BTCUSDT", 40), new CustomChannelHandler());
 ```
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Argument\OrderBookArgument(string $symbol, int $depth [, ?string $reqId = null])
+```
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Entities\PublicTradeEntity::class
 
+public function getTopic(): string // Topic name
+public function getType(): string // Data type. snapshot
+public function getSymbol(): string // Trading pair
+public function getTimestamp(): \DateTime // The timestamp that message is sent out
+public function getUpdateId(): int // Update id, is always in sequence. Occasionally, you'll receive "u"=1, which is a snapshot data due to the restart of the service. So please overwrite the locally saved orderbook
+public function getCrossSequence(): int  
+public function getBid(): ICollectionInterface // OrderBookPriceEntity[]
+public function getAsk(): ICollectionInterface // OrderBookPriceEntity[]
+```
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\OrderBookPriceEntity::class
+public function getPrice(): float
+public function getSize(): float
+```
 #### PUBLIC CHANNEL - TICKERS
 https://bybit-exchange.github.io/docs/derivatives/ws-public/ticker
 
@@ -140,4 +261,15 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\T
 use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\Argument\TickersChannelArgument;
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(TickersChannel::class, new TickersChannelArgument("BTCUSDT"), new CustomChannelHandler());
+```
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Argument\TickersArgument(string $symbol [, ?string $reqId = null])
+```
+```php
+\Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Entities\PublicTradeEntity::class
+public function getTopic(): string // Topic name
+public function getType(): string // Data type. snapshot
+public function getTimestamp(): \DateTime // The timestamp that message is sent out
+public function getCrossSequence(): int
+public function getData(): ICollectionInterface // TickersDataItemEntity[]
 ```
