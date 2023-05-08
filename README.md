@@ -59,8 +59,9 @@ public function websocket(string $webSocketChannelClassName, IWebSocketArgumentI
 
 #### PUBLIC CHANNEL - ORDER BOOK
 
-[Ссылка на оф.документацию](https://bybit-exchange.github.io/docs/spot/ws-public/orderbook)
+https://bybit-exchange.github.io/docs/spot/ws-public/orderbook
 
+Пример подключения:
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\OrderBookChannel;
@@ -69,11 +70,11 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Argu
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(OrderBookChannel::class, new OrderBookArgument("BTCUSDT"), new CustomChannelHandler());
 ```
-
+Обьект для подключения к каналу:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Argument\OrderBookArgument(string $symbol [, ?string $reqId = null])
 ```
-
+Структура сообщения приходящего в callback:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities\OrderBookEntity::class
     
@@ -91,10 +92,12 @@ public function getBid(): ICollectionInterface // OrderBookPriceEntity[]
 public function getPrice(): float
 public function getSize(): float
 ```
+<br/>
 
 #### PUBLIC CHANNEL - KLINE
 https://bybit-exchange.github.io/docs/spot/ws-public/kline
 
+Пример подключения:
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\KlineChannel;
@@ -104,11 +107,11 @@ use Carpenstar\ByBitAPI\Core\Enums\EnumIntervals;
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(KlineChannel::class, new KlineArgument(EnumIntervals::HOUR_1, "BTCUSDT"), new CustomChannelHandler());
 ```
-
+Обьект для подключения к каналу:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline\Argument\KlineArgument(string $symbol, string $interval [, ?string $reqId = null])
 ```
-
+Структура сообщения приходящего в callback:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline\Entities\KlineEntity::class
 
@@ -123,10 +126,12 @@ public function getLowPrice(): float // Low price
 public function getOpenPrice(): float // Open price
 public function getTradingVolume(): float // Trading volume
 ```
+<br/>
 
 #### PUBLIC CHANNEL - BOOKTICKER
 https://bybit-exchange.github.io/docs/spot/ws-public/bookticker
 
+Пример подключения:
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\PublicTradeChannel;
@@ -136,10 +141,12 @@ $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(BooktickerChannel::class, new BooktickerArgument("BTCUSDT"), new CustomChannelHandler());
 ```
 
+Обьект для подключения к каналу:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Argument\BooktickerArgument(string $symbol [, ?string $reqId = null])
 ```
 
+Структура сообщения приходящего в callback:
 ```php
 Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\BooktickerEntity::class
 
@@ -153,10 +160,12 @@ public function getBidQuantity(): float // Bid quantity
 public function getBestAskPrice(): float // Best ask price
 public function getAskQuantity(): float // Ask quantity
 ```
+<br/>
 
 #### PUBLIC CHANNEL - TICKERS
 https://bybit-exchange.github.io/docs/spot/ws-public/ticker
 
+Пример подключения:
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\TickersChannel;
@@ -165,10 +174,12 @@ $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(TickersChannel::class, new TickersChannelArgument("BTCUSDT"), new CustomChannelHandler());
 ```
 
+Обьект для подключения к каналу:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Argument\TickersArgument(string $symbol [, ?string $reqId = null])
 ```
 
+Структура сообщения приходящего в callback:
 ```php
 Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\TickersEntity::class
 
@@ -191,10 +202,12 @@ public function getTradinqQuoteVolume(): float // Trading quote volume
 public function getChange(): float // Change
 public function getUsdIndexPrice(): string // USD index price. It can be empty
 ```
+<br/> 
 
 #### PUBLIC CHANNEL - PUBLIC TRADE
 https://bybit-exchange.github.io/docs/spot/ws-public/public-trade
 
+Пример подключения:
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\PublicTradeChannel;
@@ -202,9 +215,13 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Publ
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $api->websocket(PublicTradeChannel::class, new PublicTradeArgument("BTCUSDT"), new CustomChannelHandler());
 ```
+
+Обьект для подключения к каналу:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Argument\PublicTradeArgument(string $symbol [, ?string $reqId = null])
 ```
+
+Структура сообщения приходящего в callback:
 ```php
 Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\PublicTradeEntity::class
 
@@ -218,12 +235,14 @@ public function getQuantity(): float // Quantity
 public function getIsTaker(): bool // True indicates buy side is taker, false indicates sell side is taker
 public function getTradeType(): int // Trade type. 0：Spot trade. 1：Paradigm block trade
 ```
+<br/> 
 
 ### Derivatives
 
 #### PUBLIC CHANNEL - ORDER BOOK
 https://bybit-exchange.github.io/docs/derivatives/ws-public/orderbook
 
+Пример подключения:
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\OrderBookChannel;
@@ -232,9 +251,13 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(OrderBookChannel::class, new OrderBookArgument("BTCUSDT", 40), new CustomChannelHandler());
 ```
+
+Обьект для подключения к каналу:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Argument\OrderBookArgument(string $symbol, int $depth [, ?string $reqId = null])
 ```
+
+Структура сообщения приходящего в callback:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Entities\PublicTradeEntity::class
 
@@ -252,9 +275,12 @@ public function getAsk(): ICollectionInterface // OrderBookPriceEntity[]
 public function getPrice(): float
 public function getSize(): float
 ```
+<br/>
+
 #### PUBLIC CHANNEL - TICKERS
 https://bybit-exchange.github.io/docs/derivatives/ws-public/ticker
 
+Пример подключения:
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\TickersChannel;
@@ -262,9 +288,13 @@ use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\Argument
 $bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
 $bybit->websocket(TickersChannel::class, new TickersChannelArgument("BTCUSDT"), new CustomChannelHandler());
 ```
+
+Обьект для подключения к каналу:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Argument\TickersArgument(string $symbol [, ?string $reqId = null])
 ```
+
+Структура сообщения приходящего в callback:
 ```php
 \Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Entities\PublicTradeEntity::class
 public function getTopic(): string // Topic name
