@@ -9,6 +9,7 @@
     }
   ],
   "require": {
+    "textalk/websocket": "^1.6",
     "carpenstar/bybitapi-sdk-core": "dev-master"
   },
   "autoload": {
