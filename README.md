@@ -1,3 +1,7 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-websockets/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-websockets/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-websockets/badges/build.png?b=master)](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-websockets/build-status/master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-websockets/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+
 # ByBitAPI - websockets package
 
 **Дисклэймер: это неофициальный SDK от биржи ByBit.   
@@ -5,34 +9,43 @@
 
 **Разработка интеграции еще не закончена, поэтому работоспособность (как полностью, так и отдельных компонентов) не гарантируется.**
 
-## Install
+## Установка
 
 
 ```sh 
 composer require carpenstar/bybitapi-sdk-websockets
 ```
 
-## Настройка и использование
+## Экземпляр приложения
 
-При создании экземпляра приложения необходимо передать 3 параметра - хост, apikey и secret.
+```php
+use Carpenstar\ByBitAPI\BybitAPI;
+
+$bybit = new BybitAPI(
+    string $host, 
+    string $apiKey, 
+    string $secret
+);
+
+```
 
 Информация об актуальных хостах содержатся на страницах описания подключения в зависимости от типа торговли: 
 - Деривативы: https://bybit-exchange.github.io/docs/derivatives/ws/connect
 - Спот: https://bybit-exchange.github.io/docs/spot/ws/connect
 
 Генерация ключа api и secret производится на странице: https://www.bybit.com/app/user/api-management
-    
-```php
-use Carpenstar\ByBitAPI\BybitAPI;
-new BybitAPI(string $host, string $apiKey, string $secret);
-```
-
 Для подключения к сокет-каналам существует единая точка входа в приложении BybitAPI
 
 ```php
-public function websocket(string $webSocketChannelClassName, IWebSocketArgumentInterface $data, IChannelHandlerInterface $channelHandler, int $mode = EnumOutputMode::MODE_ENTITY, int $wsClientTimeout = IWebSocketArgumentInterface::DEFAULT_SOCKET_CLIENT_TIMEOUT): void
+public function websocket(
+        string $webSocketChannelClassName,  // Имя класса базового канала, содержащий в себе все необходимые инструкции для соединения
+        IWebSocketArgumentInterface $argument, // Обьект опций который необходим для настройки соединения
+        IChannelHandlerInterface $channelHandler, // Пользовательский коллбэк сообщений пришедших от сервера.
+        [int $mode = EnumOutputMode::MODE_ENTITY], // Тип сообщений передаваемых в коллбэк (dto или json)
+        [int $wsClientTimeout = IWebSocketArgumentInterface::DEFAULT_SOCKET_CLIENT_TIMEOUT] // Таймаут сокет-клиента в милисекундах. По умолчанию: 1000
+        ): void
 ```
-
+ 
 1. `string $webSocketChannelClassName` - обязательный параметр. Имя класса базового канала, содержащий в себе все необходимые инструкции для соединения
 (cписок доступных на текущий момент каналов приводится ниже, в примерах использования)  
 
@@ -52,9 +65,42 @@ public function websocket(string $webSocketChannelClassName, IWebSocketArgumentI
     `\Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode::MODE_JSON` - обработчик канала получит сырое сообщение в формате json (быстрее)
 
 
-5. `int $wsClientTimeout` - необязательный параметр. Таймаут сокет-клиента в милисекундах. По умолчанию: 1000 
+5. `int $wsClientTimeout` - необязательный параметр. Таймаут сокет-клиента в милисекундах. По умолчанию: 1000
 
-## Available channels:
+## Пример использования
+
+```php
+namespace \SomethingNameSpace\Directory;
+
+class CustomChannelHandler extends ChannelHandler
+{
+    /**
+    * @param KlineEntity $data
+    * @return void
+    */
+    public  function handle($data): void
+    {
+        echo $data->getTopic() . ' - ' . $data->getSymbol() . ' - ' . $data->getTradingVolume();
+        // Какой-то код...
+    }
+}
+```
+
+```php
+use Carpenstar\ByBitAPI\BybitAPI;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\KlineChannel;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Argument\KlineArgument;
+use Carpenstar\ByBitAPI\Core\Enums\EnumIntervals;
+use SomethingNameSpace\Directory\CustomChannelHandler;
+
+$wsArgument = new KlineArgument(EnumIntervals::HOUR_1, "BTCUSDT");
+$callbackHandler = new CustomChannelHandler();
+
+$bybit = new BybitAPI("https://api-testnet.bybit.com", "apiKey", "secret");
+$bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
+```
+
+## Поддерживаемые каналы:
 
 ### SPOT
 

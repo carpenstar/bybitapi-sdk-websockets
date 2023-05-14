@@ -148,21 +148,15 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
         $this->getClient()->send(json_encode($pushData));
 
         while (true) {
-            try {
-                $test = $message = $this->getClient()->receive();
-                if ($this->getMode() == EnumOutputMode::MODE_JSON) {
-                    $message = json_decode($message, true);
-                    if (empty($message['topic'])) {
-                        continue;
-                    }
-                    $message = ResponseBuilder::make($this->getResponseDTOClass(), $message);
+            $message = $this->getClient()->receive();
+            if ($this->getMode() == EnumOutputMode::MODE_JSON) {
+                $message = json_decode($message, true);
+                if (empty($message['topic'])) {
+                    continue;
                 }
-
-                $this->getChannelHandler()->handle($message);
-
-            } catch (\Exception $e) {
-                var_dump('error 1', $e->getMessage(), $test);die;
+                $message = ResponseBuilder::make($this->getResponseDTOClass(), $message);
             }
+            $this->getChannelHandler()->handle($message);
         }
     }
 }
