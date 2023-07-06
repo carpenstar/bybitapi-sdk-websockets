@@ -10,7 +10,12 @@ class PublicTradeArgument extends WebSocketArgument
 
     public function getTopic(): array
     {
-        return [WebSocketTopicNameEnum::PUBLIC_TRADE.".{$this->getSymbol()}"];
+        $topics = [];
+        foreach ($this->symbols as $symbol) {
+            $topics[] = WebSocketTopicNameEnum::PUBLIC_TRADE.".{$symbol}";
+        }
+
+        return $topics;
     }
 
     public function getOperation(): string

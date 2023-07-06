@@ -8,13 +8,44 @@ use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketArgument;
 class OrderBookArgument extends WebSocketArgument
 {
 
+    private int $depth;
+
     /**
-     * @return array|string
+     * @return array
+     * @throws \Exception
      */
     public function getTopic(): array
     {
-        return [WebSocketTopicNameEnum::ORDERBOOK.".40.{$this->getSymbol()}"];
+        if (!isset($this->depth)) {
+            throw new \Exception("You must set depth parameter!");
+        }
+
+        $topics = [];
+        foreach ($this->symbols as $symbol) {
+            $topics[] = WebSocketTopicNameEnum::ORDERBOOK . ".{$this->getDepth()}." . $symbol;
+        }
+
+        return $topics;
     }
+
+    /**
+     * @param int $depth
+     * @return $this
+     */
+    public function setDepth(int $depth): self
+    {
+        $this->depth = $depth;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDepth(): int
+    {
+        return $this->depth;
+    }
+
 
     /**
      * @return string

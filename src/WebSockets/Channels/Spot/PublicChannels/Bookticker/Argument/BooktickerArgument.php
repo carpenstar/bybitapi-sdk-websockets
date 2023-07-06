@@ -21,6 +21,11 @@ class BooktickerArgument extends WebSocketArgument
      */
     public function getTopic(): array
     {
-        return [WebSocketTopicNameEnum::BOOKTICKER . ".{$this->getSymbol()}"];
+        $topics = [];
+        foreach ($this->symbols as $symbol) {
+            $topics[] = WebSocketTopicNameEnum::BOOKTICKER . ".{$symbol}";
+        }
+
+        return $topics;
     }
 }
