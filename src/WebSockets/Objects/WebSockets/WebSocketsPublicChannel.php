@@ -2,7 +2,7 @@
 namespace Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets;
 
 use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
-use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
+use Carpenstar\ByBitAPI\Core\Enums\OutputModeEnum;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseEntityInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
@@ -149,7 +149,7 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
 
         while (true) {
             $message = $this->getClient()->receive();
-            if ($this->getMode() == EnumOutputMode::MODE_JSON) {
+            if ($this->getMode() == OutputModeEnum::MODE_JSON) {
                 $message = json_decode($message, true);
                 if (empty($message['topic'])) {
                     continue;

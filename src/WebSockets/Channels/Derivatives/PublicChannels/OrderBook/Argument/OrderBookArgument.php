@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\OrderBook\Argument;
 
-use Carpenstar\ByBitAPI\Core\Enums\EnumIntervals;
+use Carpenstar\ByBitAPI\Core\Enums\IntervalEnum;
 use Carpenstar\ByBitAPI\WebSockets\Enums\WebSocketOperationsEnum;
 use Carpenstar\ByBitAPI\WebSockets\Enums\WebSocketTopicNameEnum;
 use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketArgument;
@@ -34,8 +34,8 @@ class OrderBookArgument extends WebSocketArgument
      */
     private function setDepth(string $depth): self
     {
-        if (!in_array($depth, EnumIntervals::INTERVALS_LIST)) {
-            throw new \Exception("Invalid interval {$depth} specified. See the list of available intervals in the file: " . EnumIntervals::class);
+        if (!in_array($depth, IntervalEnum::INTERVALS_LIST)) {
+            throw new \Exception("Invalid interval {$depth} specified. See the list of available intervals in the file: " . IntervalEnum::class);
         }
 
         $this->depth = $depth;
