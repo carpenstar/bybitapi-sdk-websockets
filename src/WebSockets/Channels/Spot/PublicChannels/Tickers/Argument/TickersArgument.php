@@ -10,7 +10,12 @@ class TickersArgument extends WebSocketArgument
 
     public function getTopic(): array
     {
-        return [WebSocketTopicNameEnum::TICKERS.".{$this->getSymbol()}"];
+        $topics = [];
+        foreach ($this->symbols as $symbol) {
+            $topics[] = WebSocketTopicNameEnum::TICKERS.".{$symbol}";
+        }
+
+        return $topics;
     }
 
     public function getOperation(): string

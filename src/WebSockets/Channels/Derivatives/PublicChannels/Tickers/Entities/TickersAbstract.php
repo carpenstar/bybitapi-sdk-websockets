@@ -1,11 +1,11 @@
 <?php
-namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\Entities;
+namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\Entities;
 
 use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
 
 /**
  * https://bybit-exchange.github.io/docs/derivatives/ws-public/ticker
@@ -17,13 +17,15 @@ use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
  *
  * Push frequency: 100ms
  */
-class TickersEntity extends ResponseEntity
+class TickersAbstract extends AbstractResponse
 {
     private ?string $topic;
 
     private ?string $type;
 
     private \DateTime $timestamp;
+
+    private int $crossSequence;
 
     private ?ICollectionInterface $data;
 
@@ -34,7 +36,8 @@ class TickersEntity extends ResponseEntity
             ->setTopic($data['topic'])
             ->setType($data['type'])
             ->setData($data['data'])
-            ->setTimestamp($data['ts']);
+            ->setTimestamp($data['ts'])
+            ->setCrossSequence($data['cs']);
     }
 
     /**
@@ -90,10 +93,28 @@ class TickersEntity extends ResponseEntity
         return $this->timestamp;
     }
 
+    /**
+     * @param int $crossSequence
+     * @return self
+     */
+    private function setCrossSequence(int $crossSequence): self
+    {
+        $this->crossSequence = $crossSequence;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCrossSequence(): int
+    {
+        return $this->crossSequence;
+    }
+
     private function setData(array $data): self
     {
         if (!empty($data)) {
-            $this->data->push(ResponseBuilder::make(TickersItemEntity::class, $data));
+            $this->data->push(ResponseBuilder::make(TickersDataItemAbstract::class, $data));
         }
         return $this;
     }

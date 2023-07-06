@@ -3,7 +3,7 @@ namespace Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets;
 
 use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseEntityInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IResponseDataInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketsChannelInterface;
@@ -16,7 +16,7 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
 
     protected IChannelHandlerInterface $channelHandler;
 
-    protected IResponseEntityInterface $response;
+    protected IResponseDataInterface $response;
 
     protected array $topic;
 
@@ -154,7 +154,7 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
                 if (empty($message['topic'])) {
                     continue;
                 }
-                $message = ResponseBuilder::make($this->getResponseDTOClass(), $message);
+                $message = ResponseBuilder::make($this->getResponseClassname(), $message);
             }
             $this->getChannelHandler()->handle($message);
         }

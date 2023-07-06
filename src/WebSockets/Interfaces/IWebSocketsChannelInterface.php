@@ -19,7 +19,7 @@ interface IWebSocketsChannelInterface
     /**
      * @return string
      */
-    public function getResponseDTOClass(): string;
+    public function getResponseClassname(): string;
 
     /**
      * @return void

@@ -5,9 +5,9 @@ use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
 
-class OrderBookEntity extends ResponseEntity
+class OrderBookAbstract extends AbstractResponse
 {
     /**
      * Topic name
@@ -180,7 +180,7 @@ class OrderBookEntity extends ResponseEntity
 
     /**
      * @param array $bids
-     * @return OrderBookEntity
+     * @return OrderBookAbstract
      * @throws \Exception
      */
     private function setBid(array $bids): self

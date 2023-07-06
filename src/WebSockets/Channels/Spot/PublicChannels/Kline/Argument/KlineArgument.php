@@ -13,7 +13,6 @@ class KlineArgument extends WebSocketArgument
     public function __construct(string $symbol, string $interval, ?string $reqId = null)
     {
         parent::__construct($symbol, $reqId);
-
         $this->setInterval($interval);
     }
 
@@ -22,7 +21,12 @@ class KlineArgument extends WebSocketArgument
      */
     public function getTopic(): array
     {
-        return [WebSocketTopicNameEnum::KLINE . ".{$this->getInterval()}.{$this->getSymbol()}"];
+        $topics = [];
+        foreach ($this->symbols as $symbol) {
+            $topics[] = WebSocketTopicNameEnum::KLINE . ".{$this->getInterval()}.{$symbol}";
+        }
+
+        return $topics;
     }
 
     /**

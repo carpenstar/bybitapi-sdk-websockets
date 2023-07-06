@@ -7,13 +7,12 @@ abstract class WebSocketArgument implements IWebSocketArgumentInterface
 {
     protected ?string $reqId;
 
-    protected ?string $symbol;
-
+    protected array $symbols;
 
     public function __construct(string $symbol, ?string $reqId = null)
     {
         $this
-            ->setSymbol($symbol)
+            ->setSymbols($symbol)
             ->setReqId($reqId);
     }
 
@@ -41,17 +40,17 @@ abstract class WebSocketArgument implements IWebSocketArgumentInterface
      * @param string $symbol
      * @return self
      */
-    protected function setSymbol(string $symbol): self
+    protected function setSymbols(string $symbol): self
     {
-        $this->symbol = $symbol;
+        $this->symbols = explode(',', $symbol);
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getSymbol(): string
+    public function getSymbols(): array
     {
-        return $this->symbol;
+        return $this->symbols;
     }
 }
