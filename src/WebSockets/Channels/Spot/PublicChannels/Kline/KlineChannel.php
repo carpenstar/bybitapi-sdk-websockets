@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline;
 
-use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline\Entities\KlineEntity;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Kline\Entities\KlineAbstract;
 use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsSpotPublicChannel;
 
 /**
@@ -17,8 +17,8 @@ class KlineChannel extends WebSocketsSpotPublicChannel
     /**
      * @return string
      */
-    public function getResponseDTOClass(): string
+    public function getResponseClassname(): string
     {
-        return KlineEntity::class;
+        return KlineAbstract::class;
     }
 }

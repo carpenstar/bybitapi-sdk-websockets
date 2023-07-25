@@ -2,12 +2,12 @@
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\Entities;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
 
 /**
  * https://bybit-exchange.github.io/docs/derivatives/ws-public/ticker
  */
-class TickersDataItemEntity extends ResponseEntity
+class TickersDataItemAbstract extends AbstractResponse
 {
     /**
      * Symbol name

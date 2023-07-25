@@ -2,9 +2,9 @@
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\PublicTrade\Entities;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
 
-class PublicTradeEntity extends ResponseEntity
+class PublicTradeAbstract extends AbstractResponse
 {
     /**
      * Topic name
@@ -76,7 +76,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param string $topic
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setTopic(string $topic): self
     {
@@ -94,7 +94,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param string $type
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setType(string $type): self
     {
@@ -112,7 +112,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param float $price
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setPrice(float $price): self
     {
@@ -130,7 +130,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param float $quantity
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setQuantity(float $quantity): self
     {
@@ -148,7 +148,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param string $tradeId
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setTradeId(string $tradeId): self
     {
@@ -166,7 +166,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param int $tradeType
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setTradeType(int $tradeType): self
     {
@@ -184,7 +184,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param string $tradingTime
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setTradingTime(string $tradingTime): self
     {
@@ -202,7 +202,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param string $requestTimestamp
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setRequestTimestamp(string $requestTimestamp): self
     {
@@ -220,7 +220,7 @@ class PublicTradeEntity extends ResponseEntity
 
     /**
      * @param bool $isTaker
-     * @return PublicTradeEntity
+     * @return PublicTradeAbstract
      */
     private function setIsTaker(bool $isTaker): self
     {

@@ -9,12 +9,10 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
-    "textalk/websocket": "^1.6",
-    "carpenstar/bybitapi-sdk-core": "dev-master"
+    "php": ">=7.4",
+    "textalk/websocket": "1.4.3",
+    "carpenstar/bybitapi-sdk-core": "3.0.0"
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Carpenstar\\ByBitAPI\\WebSockets\\": "src/WebSockets"

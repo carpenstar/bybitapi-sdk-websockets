@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers;
 
-use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\Entities\TickersEntity;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Tickers\Entities\TickersAbstract;
 use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsDerivativesPublicChannel;
 
 class TickersChannel extends WebSocketsDerivativesPublicChannel
@@ -12,8 +12,8 @@ class TickersChannel extends WebSocketsDerivativesPublicChannel
 
     }
 
-    public function getResponseDTOClass(): string
+    public function getResponseClassname(): string
     {
-        return TickersEntity::class;
+        return TickersAbstract::class;
     }
 }

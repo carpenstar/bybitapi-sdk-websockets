@@ -2,9 +2,9 @@
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
 
-class BooktickerEntity extends ResponseEntity
+class BooktickerAbstract extends AbstractResponse
 {
     /**
      * Topic name
@@ -75,7 +75,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param string $responseTimestamp
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     public function setResponseTimestamp(string $responseTimestamp): self
     {
@@ -93,7 +93,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param float $bestBidPrice
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     private function setBestBidPrice(float $bestBidPrice): self
     {
@@ -111,7 +111,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param float $bidQuantity
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     private function setBidQuantity(float $bidQuantity): self
     {
@@ -129,7 +129,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param float $bestAskPrice
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     private function setBestAskPrice(float $bestAskPrice): self
     {
@@ -147,7 +147,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param float $askQuantity
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     public function setAskQuantity(float $askQuantity): self
     {
@@ -165,7 +165,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param string $symbol
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     public function setSymbol(string $symbol): self
     {
@@ -183,7 +183,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param string $topic
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     private function setTopic(string $topic): self
     {
@@ -201,7 +201,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param string $requestTimestamp
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     private function setRequestTimestamp(string $requestTimestamp): self
     {
@@ -219,7 +219,7 @@ class BooktickerEntity extends ResponseEntity
 
     /**
      * @param string $type
-     * @return BooktickerEntity
+     * @return BooktickerAbstract
      */
     private function setType(string $type): self
     {

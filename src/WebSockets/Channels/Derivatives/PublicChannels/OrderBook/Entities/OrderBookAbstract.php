@@ -4,10 +4,10 @@ namespace Carpenstar\ByBitAPI\WebSockets\Channels\Derivatives\PublicChannels\Ord
 use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
-use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities\OrderBookPriceEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities\OrderBookPriceAbstract;
 
-class OrderBookEntity extends ResponseEntity
+class OrderBookAbstract extends AbstractResponse
 {
 
     /**
@@ -131,7 +131,7 @@ class OrderBookEntity extends ResponseEntity
 
     /**
      * @param array $asks
-     * @return OrderBookEntity
+     * @return OrderBookAbstract
      * @throws \Exception
      */
     private function setAsk(array $asks): self
@@ -140,7 +140,7 @@ class OrderBookEntity extends ResponseEntity
 
         if (!empty($asks)) {
             array_map(function ($askItem) use ($askCollection) {
-                $askCollection->push(ResponseBuilder::make(OrderBookPriceEntity::class, $askItem));
+                $askCollection->push(ResponseBuilder::make(OrderBookPriceAbstract::class, $askItem));
             }, $asks);
         }
 
@@ -150,7 +150,7 @@ class OrderBookEntity extends ResponseEntity
 
     /**
      * @param array $bids
-     * @return OrderBookEntity
+     * @return OrderBookAbstract
      * @throws \Exception
      */
     private function setBid(array $bids): self
@@ -159,7 +159,7 @@ class OrderBookEntity extends ResponseEntity
 
         if (!empty($bids)) {
             array_map(function ($bidItem) use ($bidCollection) {
-                $bidCollection->push(ResponseBuilder::make(OrderBookPriceEntity::class, $bidItem));
+                $bidCollection->push(ResponseBuilder::make(OrderBookPriceAbstract::class, $bidItem));
             }, $bids);
         }
 

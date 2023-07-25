@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker;
 
-use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\BooktickerEntity;
+use Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Bookticker\Entities\BooktickerAbstract;
 use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsSpotPublicChannel;
 
 /**
@@ -16,9 +16,9 @@ use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\WebSocketsSpotPublicChanne
 class BooktickerChannel extends WebSocketsSpotPublicChannel
 {
 
-    public function getResponseDTOClass(): string
+    public function getResponseClassname(): string
     {
-        return BooktickerEntity::class;
+        return BooktickerAbstract::class;
     }
 
     protected function init(array $data): void
