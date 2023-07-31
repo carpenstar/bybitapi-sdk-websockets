@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\OrderBook\Entities;
 
-use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseDtoBuilder;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
@@ -162,7 +162,7 @@ class OrderBookAbstract extends AbstractResponse
 
         if (!empty($asks)) {
             array_map(function ($askItem) use ($askCollection) {
-                $askCollection->push(ResponseBuilder::make(OrderBookPriceDTO::class, $askItem));
+                $askCollection->push(ResponseDtoBuilder::make(OrderBookPriceDTO::class, $askItem));
             }, $asks);
         }
 
@@ -189,7 +189,7 @@ class OrderBookAbstract extends AbstractResponse
 
         if (!empty($bids)) {
             array_map(function ($bidItem) use ($bidCollection) {
-                $bidCollection->push(ResponseBuilder::make(OrderBookPriceDTO::class, $bidItem));
+                $bidCollection->push(ResponseDtoBuilder::make(OrderBookPriceDTO::class, $bidItem));
             }, $bids);
         }
 

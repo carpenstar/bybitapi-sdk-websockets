@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Channels\Spot\PublicChannels\Tickers\Entities;
 
-use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseDtoBuilder;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection;
@@ -93,7 +93,7 @@ class TickersAbstract extends AbstractResponse
     private function setData(array $data): self
     {
         if (!empty($data)) {
-            $this->data->push(ResponseBuilder::make(TickersItemAbstract::class, $data));
+            $this->data->push(ResponseDtoBuilder::make(TickersItemAbstract::class, $data));
         }
         return $this;
     }

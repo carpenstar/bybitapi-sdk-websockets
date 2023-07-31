@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets;
 
-use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseDtoBuilder;
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseDataInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
@@ -154,7 +154,7 @@ abstract class WebSocketsPublicChannel implements IWebSocketsChannelInterface
                 if (empty($message['topic'])) {
                     continue;
                 }
-                $message = ResponseBuilder::make($this->getResponseClassname(), $message);
+                $message = ResponseDtoBuilder::make($this->getResponseClassname(), $message);
             }
             $this->getChannelHandler()->handle($message);
         }
